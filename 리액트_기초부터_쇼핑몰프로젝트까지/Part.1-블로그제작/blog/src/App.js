@@ -11,6 +11,12 @@ function App() {
                 <h4>React Blog</h4>
             </header>
             <div className="list">
+                <button onClick={() => {
+                    let copy = [...title];
+                    copy.sort();
+                    setTitle(copy);
+
+                }}>가나다순 정렬</button>
                 <h4>
                     {title[0]}
                     <span
@@ -21,7 +27,11 @@ function App() {
                         👍
                     </span>
                     {thumbsUp}
-                    <button onClick={() => {}}>수정</button>
+                    <button onClick={() => {
+                        let copy = [...title];
+                        copy[0] = '여자코트 추천';
+                        setTitle(copy);
+                    }}>수정</button>
                 </h4>
                 <p>2월 17일 발행</p>
             </div>
