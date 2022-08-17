@@ -113,4 +113,4 @@ html 깔끔하게 쓸려고 Component 수백개 만들면 그것만으로도 관
 
 예를 들어서 function modal 안에서 글제목 state 쓰고싶어서 {글제목} 이렇게 쓰면 잘 안되는데 왜냐면 당연히 자바스크립트에선 한 function 안에 있는 변수를 다른 function 에서 맘대로 쓸 수 없어서 그렇습니다. <br>
 
-props 라는 문법을 이용해 state를 `<Modal>` 까지 전해줘야 비로소 사용이 가능합니다.
+props 라는 문법을 이용해 state를 `<Modal>` 까지 전해줘야 비로소 사용이 가능합니다!
