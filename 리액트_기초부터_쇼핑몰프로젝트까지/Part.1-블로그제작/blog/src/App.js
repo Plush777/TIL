@@ -34,6 +34,19 @@ function App() {
 
             {modal === true ? <Modal /> : null}
             {title.map((a, i) => {
+
+                const titleModfy = () => {
+                    let writingModfiy = [...title];
+                    writingModfiy[i] = '수정됐어!';
+                    setTitle(writingModfiy);
+                }
+
+                const addThumbsUp = () => {
+                    let copy = [...thumbsUp];
+                    copy[i]++;
+                    setThumbsup(copy);
+                }
+
                 return (
                     <div className="list" key={i}>
                         <div className="list-head">
@@ -42,18 +55,10 @@ function App() {
                                     modalToggle();
                                 }
                             }}>{a}</h4>
-                            <button type="button" className='btnThumbsUp' onClick={() => {
-                                let copy = [...thumbsUp];
-                                copy[i]++;
-                                setThumbsup(copy);
-                            }}>
+                            <button type="button" className='btnThumbsUp' onClick={() => {addThumbsUp();}}>
                                 <span>👍{thumbsUp[i]}</span>
                             </button>
-                            <button type='button' className='btnModify' onClick={() => {
-                                let writingModfiy = [...title];
-                                writingModfiy[i] = '수정됐어!';
-                                setTitle(writingModfiy);
-                            }}>
+                            <button type='button' className='btnModify' onClick={() => {titleModfy();}}>
                                 <span>✍️</span>
                             </button>
                         </div>
