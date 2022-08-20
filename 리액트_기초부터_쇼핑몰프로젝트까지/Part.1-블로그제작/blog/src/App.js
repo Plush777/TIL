@@ -5,6 +5,7 @@ function App() {
     let [title, setTitle] = useState(['남자 코트 추천', '강남 우동 맛집', '파이썬 독학']);
     let [thumbsUp, setThumbsup] = useState([0, 0, 0]);
     let [modal, setModal] = useState(false); //state 이전값
+    let [modalTitle, setModalTitle] = useState(0);
 
     const modalToggle = () => {
         setModal((modal) => !modal);
@@ -23,7 +24,7 @@ function App() {
     return (
         <div className="App">
             <header className="black-nav">
-                <h4>React Blog</h4>
+                <h4>React Blog</h4>`
             </header>
             {/* <button onClick={() => {
                     let copy = [...title];
@@ -32,7 +33,8 @@ function App() {
 
                 }}>가나다순 정렬</button> */}
 
-            {modal === true ? <Modal /> : null}
+            {modal && <Modal bgColor={'skyblue'} titleProp={title} modalProp={setTitle} modalTitleProp={modalTitle}/>}
+
             {title.map((a, i) => {
 
                 const titleModfy = () => {
@@ -51,9 +53,8 @@ function App() {
                     <div className="list" key={i}>
                         <div className="list-head">
                             <h4 onClick={() => {
-                                if (i === 0) {
-                                    modalToggle();
-                                }
+                                modalToggle();
+                                setModalTitle(i);
                             }}>{a}</h4>
                             <button type="button" className='btnThumbsUp' onClick={() => {addThumbsUp();}}>
                                 <span>👍{thumbsUp[i]}</span>
@@ -72,12 +73,24 @@ function App() {
     );
 }
 
-function Modal() {
+//es6 구조분햐 할당 문법으로 굳이 앞에다가 props 안적어도 됨!
+function Modal({bgColor, titleProp, modalProp, modalTitleProp}) {
+    const modalBackground = bgColor;
+    const listTitle = titleProp;
+    const modalListTitle = modalProp;
+
     return (
-        <div className="modal">
-            <h4>제목</h4>
+        <div className="modal" style={{backgroundColor: modalBackground}}>
+            <h4>{listTitle[modalTitleProp]}</h4>
             <p>날짜</p>
             <p>상세내용</p>
+            <button type='button' onClick={() => {
+                let modalTitleModfiy = [...listTitle];
+                modalTitleModfiy[0] = '모달창 타이틀도 수정됐어!';
+                modalListTitle(modalTitleModfiy);
+            }}>
+                <span>✍️</span>
+            </button>
         </div>
     );
 }
