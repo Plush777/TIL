@@ -24,7 +24,7 @@ function App() {
     return (
         <div className="App">
             <header className="black-nav">
-                <h4>React Blog</h4>`
+                <h4>React Blog</h4>
             </header>
             {/* <button onClick={() => {
                     let copy = [...title];
