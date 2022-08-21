@@ -165,3 +165,16 @@ pre {
     background: #eee;
     text-align: left;
 }
+
+.inputGroup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+input {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}

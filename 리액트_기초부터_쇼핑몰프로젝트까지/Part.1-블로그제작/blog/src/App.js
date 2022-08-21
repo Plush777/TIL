@@ -6,6 +6,7 @@ function App() {
     let [thumbsUp, setThumbsup] = useState([0, 0, 0]);
     let [modal, setModal] = useState(false); //state 이전값
     let [modalTitle, setModalTitle] = useState(0);
+    let [input, setInput] = useState('');
 
     const modalToggle = () => {
         setModal((modal) => !modal);
@@ -31,7 +32,7 @@ function App() {
                     copy.sort();
                     setTitle(copy);
 
-                }}>가나다순 정렬</button> */}
+                }}>가나다순 정렬</button> */} 
 
             {modal && <Modal bgColor={'skyblue'} titleProp={title} modalProp={setTitle} modalTitleProp={modalTitle}/>}
 
@@ -49,6 +50,22 @@ function App() {
                     setThumbsup(copy);
                 }
 
+                const titleDelete = () => {
+                    let writingDelete = [...title];
+                    writingDelete.shift();
+                    setTitle(writingDelete);
+                    console.log(title);
+                }
+
+                const today = () => {
+                    let date = new Date();
+                    let todayYear = date.getFullYear();
+                    let todayMonth = (date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : '0' + (date.getMonth() + 1);
+                    let todayDate = date.getDate() > 9 ? date.getDate() : '0' + date.getDate();
+
+                    return todayYear + '년' + todayMonth + '월' + todayDate + '일';
+                }
+
                 return (
                     <div className="list" key={i}>
                         <div className="list-head">
@@ -62,13 +79,19 @@ function App() {
                             <button type='button' className='btnModify' onClick={() => {titleModfy();}}>
                                 <span>✍️</span>
                             </button>
+                            <button type='button' className='btnDelete' onClick={() => {titleDelete();}}>
+                                <span>🗑️</span>
+                            </button>
                         </div>
                         <div className="list-bottom">
-                            <p>2월 17일 발행</p>
-                        </div>
+                            <p>{today().toString()}</p>
+                        </div> 
                     </div>
                 );
             })}
+
+            <Input setInput={setInput} titleProp={title} inputProp={input} setTitleProp={setTitle}
+            thumbsUpProp={thumbsUp} setThumbsupProp={setThumbsup}/>
         </div>
     );
 }
@@ -78,10 +101,11 @@ function Modal({bgColor, titleProp, modalProp, modalTitleProp}) {
     const modalBackground = bgColor;
     const listTitle = titleProp;
     const modalListTitle = modalProp;
+    const modalTitle = modalTitleProp;
 
     return (
         <div className="modal" style={{backgroundColor: modalBackground}}>
-            <h4>{listTitle[modalTitleProp]}</h4>
+            <h4>{listTitle[modalTitle]}</h4>
             <p>날짜</p>
             <p>상세내용</p>
             <button type='button' onClick={() => {
@@ -93,6 +117,46 @@ function Modal({bgColor, titleProp, modalProp, modalTitleProp}) {
             </button>
         </div>
     );
+}
+
+function Input({ setInput , titleProp , inputProp , setTitleProp , thumbsUpProp , setThumbsupProp}){
+    const textChange = setInput; //input state 변경함수
+    const listTitle = titleProp; //App에서 title state
+    const inputValue = inputProp; //App에서 input state
+    const addTitle = setTitleProp; //App에서 title state 변경함수
+    const currentThumbsUp = thumbsUpProp; //App에서 thumbsUp state
+    const addThumbsUp = setThumbsupProp; //App에서 thumbsUp state 변경함수
+
+    const inputOnChange = (e) => {
+        textChange(e.target.value);
+        console.log(textChange);
+    }
+    
+    const inputOnSubmit = () => {
+        if(inputValue === ''){
+            alert('제목을 입력해주세요!');
+            return;
+        }
+
+        let currentValue = [...listTitle];
+        console.log(currentValue);
+        currentValue.unshift(inputValue);
+        console.log(currentValue);
+        addTitle(currentValue);
+
+        let thumbsUpValue = [...currentThumbsUp];
+        thumbsUpValue.push(0);
+        addThumbsUp(thumbsUpValue);
+
+        textChange('');
+    }
+
+    return (
+        <div className='inputGroup'>
+            <input type='text' onChange={inputOnChange}/>
+            <button type='button' className='btnSubmit' onClick={inputOnSubmit}>등록</button>
+        </div>
+    )
 }
 
 export default App;
