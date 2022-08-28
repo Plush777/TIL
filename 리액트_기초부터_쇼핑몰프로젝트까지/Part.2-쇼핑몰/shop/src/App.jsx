@@ -8,10 +8,38 @@ import Event from './components/Event';
 import data from './data';
 import { useState } from 'react';
 import GlobalStyle from './components/GlobalStyle';
+import axios from 'axios';
 
 function App() {
     let navigate = useNavigate();
-    let [shoes] = useState(data);
+    let [shoes,setShoes] = useState(data);
+    let [clickCount,setClickCount] = useState(0);
+
+    const clickCounter = () => {
+        setClickCount(clickCount + 1);
+    }
+    
+    const getData1 = () => {
+        clickCounter();
+        axios.get('https://codingapple1.github.io/shop/data2.json').then((res) => {
+            console.log('1번째 데이터 : ' , res.data);
+            let copy = [...shoes , ...res.data];
+            setShoes(copy);
+        }).catch(() => {
+            console.log('1번째 데이터 불러오기 실패')
+        })
+    }
+
+    const getData2 = () => {
+        clickCounter();
+        axios.get('https://codingapple1.github.io/shop/data3.json').then((res) => {
+            console.log('2번째 데이터 : ' , res.data);
+            let copy = [...shoes , ...res.data];
+            setShoes(copy);
+        }).catch(() => {
+            console.log('2번째 데이터 불러오기 실패')
+        })
+    }
 
     return (
         <div className="App">
@@ -41,6 +69,13 @@ function App() {
                                 })}
                             </div>
                         </div>
+
+                        {
+                            clickCount === 0 && <button className="btnMore" onClick={getData1}>더보기</button>
+                        }
+                        {
+                            clickCount === 1 && <button className="btnMore" onClick={getData2}>더보기</button>
+                        }
                     </>
                 } />
                 <Route path="/detail/:id" element={<Detail shoes={shoes}/>} />
