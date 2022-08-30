@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from 'styled-components';
+import { Nav } from 'react-bootstrap';
 
 const Container = styled.div`
     position: relative;
@@ -74,6 +75,7 @@ function Detail({ shoes }) {
     let [alert,setAlert] = useState(true);
     let [newAlert,setNewAlert] = useState(false);
     let [isNum,setIsNum] = useState('');
+    let [tab,setTab] = useState(0);
 
     useEffect(() => {
         let timer = setTimeout(() => {
@@ -99,29 +101,55 @@ function Detail({ shoes }) {
     }
 
     return (  
-        <Container>
-            {
-                alert === true ? (<Alert>2초이내 구매시 할인</Alert>) : null
-            }
-            {
-                newAlert === true ? (<AlertType02>숫자만 입력해주세요.</AlertType02>) : null
-            }
-            <ItemRow>
-                <Item>
-                    <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" alt="" />
-                </Item>
-                <Item>
-                    <ProductsInfo>
-                        <ProductsName color="#000" fz="1.5rem">{searchData.title}</ProductsName>
-                        <ProductsName color="#000" fz="1.1rem">{searchData.content}</ProductsName>
-                        <ProductsName color="#000" fz="1rem">{searchData.price}</ProductsName>
-                        <ProductsButton btnHeight="38px" btnColor="#fff" btnFz="1rem" btnBackground="#dc3545">주문하기</ProductsButton>
-                        <Input onChange={inputCurrent} mt="10px" placeholder="숫자만 입력하세요"/> 
-                    </ProductsInfo>  
-                </Item>
-            </ItemRow>
-        </Container>
+        <>
+            <Container>
+                {
+                    alert === true ? (<Alert>2초이내 구매시 할인</Alert>) : null
+                }
+                {
+                    newAlert === true ? (<AlertType02>숫자만 입력해주세요.</AlertType02>) : null
+                }
+                <ItemRow>
+                    <Item>
+                        <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" alt="" />
+                    </Item>
+                    <Item>
+                        <ProductsInfo>
+                            <ProductsName color="#000" fz="1.5rem">{searchData.title}</ProductsName>
+                            <ProductsName color="#000" fz="1.1rem">{searchData.content}</ProductsName>
+                            <ProductsName color="#000" fz="1rem">{searchData.price}</ProductsName>
+                            <ProductsButton btnHeight="38px" btnColor="#fff" btnFz="1rem" btnBackground="#dc3545">주문하기</ProductsButton>
+                            <Input onChange={inputCurrent} mt="10px" placeholder="숫자만 입력하세요"/> 
+                        </ProductsInfo>  
+                    </Item>
+                </ItemRow>
+            </Container>
+            <Nav variant="tabs"  defaultActiveKey="link0">
+                <Nav.Item>
+                    <Nav.Link eventKey="link0" onClick={() => {setTab(0)}}>버튼0</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="link1" onClick={() => {setTab(1)}}>버튼1</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="link2" onClick={() => {setTab(2)}}>버튼2</Nav.Link>
+                </Nav.Item>
+            </Nav>
+            <TabContent tab={tab}/>
+        </>
     );
+}
+
+function TabContent({tab}){
+    const tabCont = tab;
+    
+    if(tabCont === 0){
+        return <div>내용0</div>
+    } else if(tabCont === 1){
+        return <div>내용1</div>
+    } else if(tabCont === 2){
+        return <div>내용2</div>
+    }
 }
 
 export default Detail;
