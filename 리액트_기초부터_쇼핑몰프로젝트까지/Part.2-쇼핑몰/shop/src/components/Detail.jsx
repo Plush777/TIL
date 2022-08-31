@@ -76,6 +76,7 @@ function Detail({ shoes }) {
     let [newAlert,setNewAlert] = useState(false);
     let [isNum,setIsNum] = useState('');
     let [tab,setTab] = useState(0);
+    let [fade,setFade] = useState('')
 
     useEffect(() => {
         let timer = setTimeout(() => {
@@ -89,6 +90,18 @@ function Detail({ shoes }) {
             clearTimeout(timer);
         }
     }, [isNum,newAlert]);
+
+    //tab state가 변경이 될 때 end 클래스 부착하기
+    useEffect(() => {
+        let animationTimer = setTimeout(() => {
+            setFade('end') //fade state에 end 문자열을 추가해주세요
+        },100)
+
+        return(() => {
+            clearTimeout(animationTimer);
+            setFade('') //위 코드 실행 전에 fade state를 빈 공간으로 먼저 치워주세요
+        })
+    },[tab])
 
     const shoesData = shoes;
 
@@ -135,7 +148,10 @@ function Detail({ shoes }) {
                     <Nav.Link eventKey="link2" onClick={() => {setTab(2)}}>버튼2</Nav.Link>
                 </Nav.Item>
             </Nav>
-            <TabContent tab={tab}/>
+            {/* html 중간에 변수 넣기 */}
+            <div className={`cont ${fade}`}>
+                <TabContent tab={tab}/>
+            </div>
         </>
     );
 }
