@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from 'styled-components';
 import { Nav } from 'react-bootstrap';
+import {Context1} from './../App';
 
 const Container = styled.div`
     position: relative;
@@ -76,7 +77,8 @@ function Detail({ shoes }) {
     let [newAlert,setNewAlert] = useState(false);
     let [isNum,setIsNum] = useState('');
     let [tab,setTab] = useState(0);
-    let [fade,setFade] = useState('')
+    let [fade,setFade] = useState('');
+    let {stock} = useContext(Context1);
 
     useEffect(() => {
         let timer = setTimeout(() => {
@@ -150,7 +152,7 @@ function Detail({ shoes }) {
             </Nav>
             {/* html 중간에 변수 넣기 */}
             <div className={`cont ${fade}`}>
-                <TabContent tab={tab}/>
+                <TabContent shoes={shoes} tab={tab}/>
             </div>
         </>
     );
@@ -158,9 +160,10 @@ function Detail({ shoes }) {
 
 function TabContent({tab}){
     const tabCont = tab;
+    let {stock} = useContext(Context1);
     
     if(tabCont === 0){
-        return <div>내용0</div>
+        return <div>{stock[0]}</div>
     } else if(tabCont === 1){
         return <div>내용1</div>
     } else if(tabCont === 2){

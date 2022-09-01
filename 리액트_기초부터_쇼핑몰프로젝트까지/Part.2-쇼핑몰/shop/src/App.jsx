@@ -6,14 +6,17 @@ import Detail from './components/Detail';
 import About from './components/About';
 import Event from './components/Event';
 import data from './data';
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import GlobalStyle from './components/GlobalStyle';
 import axios from 'axios';
+
+export let Context1 = createContext();
 
 function App() {
     let navigate = useNavigate();
     let [shoes,setShoes] = useState(data);
     let [clickCount,setClickCount] = useState(0);
+    let [stock] = useState([10, 11, 12]);
 
     const clickCounter = () => {
         setClickCount(clickCount + 1);
@@ -78,7 +81,11 @@ function App() {
                         }
                     </>
                 } />
-                <Route path="/detail/:id" element={<Detail shoes={shoes}/>} />
+                <Route path="/detail/:id" element={
+                    <Context1.Provider value={{stock,shoes}}>
+                         <Detail shoes={shoes}/>
+                    </Context1.Provider>
+                } />
                 <Route path="*" element={<div>안돼 돌아가</div>} /> 
                 <Route path="/about" element={<About/>}>
                     <Route path='member' element={<div>멤버임</div>}/>
