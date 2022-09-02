@@ -5,6 +5,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import Detail from './components/Detail';
 import About from './components/About';
 import Event from './components/Event';
+import Cart from './components/Cart';
 import data from './data';
 import { createContext, useState } from 'react';
 import GlobalStyle from './components/GlobalStyle';
@@ -95,6 +96,10 @@ function App() {
                 <Route path="/event" element={<Event/>}>
                     <Route path='one' element={<div>사실 없음 ㅎ</div>}/>
                     <Route path='two' element={<div>진짜 없음</div>}/>
+                </Route>
+
+                <Route path="/cart" element={<Cart/>}>
+                
                 </Route>
             </Routes>
         </div>
