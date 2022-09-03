@@ -1,6 +1,14 @@
 import {Table} from 'react-bootstrap';
+import {useDispatch, useSelector} from 'react-redux'
+import {modifyCartData} from '../store'
 
 function Cart() {
+
+    let cartStore = useSelector(state => state);
+    let dispatch = useDispatch()
+
+    console.log(cartStore)
+
     return ( 
         <>
             <Table>
@@ -13,12 +21,18 @@ function Cart() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>안녕</td>
-                        <td>안녕</td>
-                        <td>안녕</td>
-                    </tr>
+                    {
+                        cartStore.cartData.map((a , i) => {
+                            return (
+                                <tr key={i}>
+                                    <td>{a.id}</td>
+                                    <td>{a.name}</td>
+                                    <td>{a.count}</td>
+                                    <td><button onClick={() => dispatch(modifyCartData())}>+</button></td>
+                                </tr>
+                            )
+                        })
+                    }
                 </tbody>
             </Table> 
         </>
