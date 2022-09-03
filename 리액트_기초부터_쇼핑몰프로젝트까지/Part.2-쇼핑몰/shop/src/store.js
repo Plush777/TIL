@@ -1,8 +1,9 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit'
 
+//createSlice -> useState 만들기
 let cartData = createSlice({ 
-  name: 'cartData',
-  initialState: [
+  name: 'cartData', //state 이름
+  initialState: [ //state 데이터
     {
       id : 0,
       name: 'White and Black',
@@ -15,11 +16,9 @@ let cartData = createSlice({
     },
   ],
 
-  reducers: {
-    modifyCartData(){
-      // cartData 의 name 을 변경하는 로직
-      return [...cartData]
-      
+  reducers: { //함수 생성
+    modifyCartData(state){
+      state[0].count++;
     }
   }
 })
@@ -27,7 +26,7 @@ let cartData = createSlice({
 export let {modifyCartData} = cartData.actions
 
 export default configureStore({
-  reducer: {
+  reducer: { //state 만든거 등록
     cartData : cartData.reducer,
   }
 }) 

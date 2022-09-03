@@ -4,8 +4,8 @@ import {modifyCartData} from '../store'
 
 function Cart() {
 
-    let cartStore = useSelector(state => state);
-    let dispatch = useDispatch()
+    let cartStore = useSelector(state => state); //store에 있던 state를 전부 가져옴
+    let dispatch = useDispatch() //store.js 로 요청보내주는 함수
 
     console.log(cartStore)
 
