@@ -28,7 +28,7 @@ function Cart() {
                                     <td>{a.id}</td>
                                     <td>{a.name}</td>
                                     <td>{a.count}</td>
-                                    <td><button onClick={() => dispatch(modifyCartData())}>+</button></td>
+                                    <td><button onClick={() => dispatch(modifyCartData(cartStore.cartData[i].id))}>+</button></td>
                                 </tr>
                             )
                         })

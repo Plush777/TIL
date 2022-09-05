@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import styled from 'styled-components';
 import { Nav } from 'react-bootstrap';
 import {Context1} from './../App';
+import { addItem } from "../store";
+import { useDispatch } from "react-redux";
 
 const Container = styled.div`
     position: relative;
@@ -79,6 +81,7 @@ function Detail({ shoes }) {
     let [tab,setTab] = useState(0);
     let [fade,setFade] = useState('');
     let {stock} = useContext(Context1);
+    let dispatch = useDispatch();
 
     useEffect(() => {
         let timer = setTimeout(() => {
@@ -133,7 +136,10 @@ function Detail({ shoes }) {
                             <ProductsName color="#000" fz="1.5rem">{searchData.title}</ProductsName>
                             <ProductsName color="#000" fz="1.1rem">{searchData.content}</ProductsName>
                             <ProductsName color="#000" fz="1rem">{searchData.price}</ProductsName>
-                            <ProductsButton btnHeight="38px" btnColor="#fff" btnFz="1rem" btnBackground="#dc3545">주문하기</ProductsButton>
+                            <ProductsButton btnHeight="38px" btnColor="#fff" btnFz="1rem" btnBackground="#dc3545"
+                            onClick={() => {dispatch(addItem({id : 3, name : 'White and Black', count : 1}))
+                            }}>주문하기
+                            </ProductsButton>
                             <Input onChange={inputCurrent} mt="10px" placeholder="숫자만 입력하세요"/> 
                         </ProductsInfo>  
                     </Item>

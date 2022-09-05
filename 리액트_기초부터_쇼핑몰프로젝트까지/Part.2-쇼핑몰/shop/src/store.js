@@ -1,4 +1,5 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit'
+import user from './store/userSlice'
 
 //createSlice -> useState 만들기
 let cartData = createSlice({ 
@@ -17,13 +18,17 @@ let cartData = createSlice({
   ],
 
   reducers: { //함수 생성
-    modifyCartData(state){
-      state[0].count++;
+    modifyCartData(state,action){
+      let num = state.findIndex(item => {return item.id === action.payload})
+      state[num].count++;
+    },
+    addItem(state,action){
+      state.push(action.payload)
     }
   }
 })
 
-export let {modifyCartData} = cartData.actions
+export let {modifyCartData , addItem} = cartData.actions
 
 export default configureStore({
   reducer: { //state 만든거 등록
