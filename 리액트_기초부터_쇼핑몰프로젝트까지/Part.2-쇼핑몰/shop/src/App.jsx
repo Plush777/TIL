@@ -10,6 +10,7 @@ import data from './data';
 import { createContext, useState } from 'react';
 import GlobalStyle from './components/GlobalStyle';
 import axios from 'axios';
+import { useQuery }  from '@tanstack/react-query' ;
 
 export let Context1 = createContext();
 
@@ -45,6 +46,13 @@ function App() {
         })
     }
 
+    let result = useQuery(['query'], () => {
+        return axios.get('https://codingapple1.github.io/userdata.json').then((a) => {
+            console.log('요청됨')
+            return a.data;
+        })
+    })
+
     return (
         <div className="App">
             <GlobalStyle/>
@@ -55,6 +63,13 @@ function App() {
                         <Nav.Link onClick={() => { navigate('/') }}>홈</Nav.Link>
                         <Nav.Link onClick={() => { navigate('/detail') }}>상세 페이지</Nav.Link>
                         <Nav.Link onClick={() => { navigate('/cart')}}>장바구니</Nav.Link>
+                    </Nav>
+                    <Nav className='ms-auto'>
+                        <p style={{color:'white'}}>
+                            {result.isLoading && '로딩중'}
+                            {result.error && '에러남'}
+                            {result.data && result.data.name}
+                        </p>
                     </Nav>
                 </Container>
             </Navbar>
