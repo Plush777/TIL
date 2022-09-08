@@ -1,18 +1,21 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import Detail from './components/Detail';
+import {Routes, Route, useNavigate } from 'react-router-dom';
+// import Detail from './components/Detail';
 import About from './components/About';
 import Event from './components/Event';
-import Cart from './components/Cart';
+// import Cart from './components/Cart';
 import data from './data';
-import { createContext, useState } from 'react';
+import {lazy, Suspense,  createContext, useState } from 'react';
 import GlobalStyle from './components/GlobalStyle';
 import axios from 'axios';
 import { useQuery }  from '@tanstack/react-query' ;
 
 export let Context1 = createContext();
+
+const Detail = lazy(() => import('./components/Detail'));
+const Cart = lazy(() => import('./components/Cart'));
 
 function App() {
     let navigate = useNavigate();
@@ -74,50 +77,52 @@ function App() {
                 </Container>
             </Navbar>
 
-            <Routes>
-                <Route path="/" element={
-                    <>
-                        <div className="main-bg"></div>
-                        <div className="container">
-                            <div className="row">
-                                {shoes.map((data, index) => {
-                                    return (
-                                        <ShoesList shoes={data} key={index} />
-                                        //shoes={data} 파라미터로 data 자체를 넘김
-                                        //shoes=shoes[index] map 반복문 index 값을 찾아서 넘김
-                                    );
-                                })}
+            <Suspense fallback={<div>로딩중임</div>}>
+                <Routes>
+                    <Route path="/" element={
+                        <>
+                            <div className="main-bg"></div>
+                            <div className="container">
+                                <div className="row">
+                                    {shoes.map((data, index) => {
+                                        return (
+                                            <ShoesList shoes={data} key={index} />
+                                            //shoes={data} 파라미터로 data 자체를 넘김
+                                            //shoes=shoes[index] map 반복문 index 값을 찾아서 넘김
+                                        );
+                                    })}
+                                </div>
                             </div>
-                        </div>
 
-                        {
-                            clickCount === 0 && <button className="btnMore" onClick={getData1}>더보기</button>
-                        }
-                        {
-                            clickCount === 1 && <button className="btnMore" onClick={getData2}>더보기</button>
-                        }
-                    </>
-                } />
-                <Route path="/detail/:id" element={
-                    <Context1.Provider value={{stock,shoes}}>
-                         <Detail shoes={shoes}/>
-                    </Context1.Provider>
-                } />
-                <Route path="*" element={<div>안돼 돌아가</div>} /> 
-                <Route path="/about" element={<About/>}>
-                    <Route path='member' element={<div>멤버임</div>}/>
-                    <Route path='location' element={<div>위치정보임</div>}/>
-                </Route>
+                            {
+                                clickCount === 0 && <button className="btnMore" onClick={getData1}>더보기</button>
+                            }
+                            {
+                                clickCount === 1 && <button className="btnMore" onClick={getData2}>더보기</button>
+                            }
+                        </>
+                    } />
+                    <Route path="/detail/:id" element={
+                        <Context1.Provider value={{stock,shoes}}>
+                            <Detail shoes={shoes}/>
+                        </Context1.Provider>
+                    } />
+                    <Route path="*" element={<div>안돼 돌아가</div>} /> 
+                    <Route path="/about" element={<About/>}>
+                        <Route path='member' element={<div>멤버임</div>}/>
+                        <Route path='location' element={<div>위치정보임</div>}/>
+                    </Route>
 
-                <Route path="/event" element={<Event/>}>
-                    <Route path='one' element={<div>사실 없음 ㅎ</div>}/>
-                    <Route path='two' element={<div>진짜 없음</div>}/>
-                </Route>
+                    <Route path="/event" element={<Event/>}>
+                        <Route path='one' element={<div>사실 없음 ㅎ</div>}/>
+                        <Route path='two' element={<div>진짜 없음</div>}/>
+                    </Route>
 
-                <Route path="/cart" element={<Cart/>}>
-                
-                </Route>
-            </Routes>
+                    <Route path="/cart" element={<Cart/>}>
+                    
+                    </Route>
+                </Routes>
+            </Suspense>
         </div>
     );
 }
