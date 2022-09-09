@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {modifyCartData} from '../store'
 import {useState,memo} from 'react'
 
+
 //꼭 필요할 때만 재렌더링
 let Child = memo(function(){
     console.log('재렌더링됨')
