@@ -11,6 +11,7 @@ import {lazy, Suspense,  createContext, useState } from 'react';
 import GlobalStyle from './components/GlobalStyle';
 import axios from 'axios';
 import { useQuery }  from '@tanstack/react-query' ;
+import Test from './components/Test';
 
 export let Context1 = createContext();
 
@@ -121,6 +122,8 @@ function App() {
                     <Route path="/cart" element={<Cart/>}>
                     
                     </Route>
+
+                    <Route path="/test" element={<Test/>}/>
                 </Routes>
             </Suspense>
         </div>
