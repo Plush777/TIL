@@ -118,6 +118,17 @@ function Detail({ shoes }) {
         setIsNum(e.target.value);
     }
 
+    useEffect(() => {
+        let watched = localStorage.getItem('watched');
+        watched = JSON.parse(watched);
+        watched.push(searchData.id);
+
+        watched = new Set(watched)
+        watched = Array.from(watched)
+        
+        localStorage.setItem('watched',JSON.stringify(watched));
+    },[])
+
     return (  
         <>
             <Container>

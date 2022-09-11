@@ -52,3 +52,5 @@
     opacity: 1;
     transition: opacity 0.5s;
 }
+
+.rows{display: flex;}
