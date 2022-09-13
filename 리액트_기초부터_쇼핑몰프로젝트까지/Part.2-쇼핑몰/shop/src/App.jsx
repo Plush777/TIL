@@ -12,6 +12,7 @@ import GlobalStyle from './components/GlobalStyle';
 import axios from 'axios';
 import { useQuery }  from '@tanstack/react-query' ;
 import Test from './components/Test';
+import Class from './components/class';
 
 export let Context1 = createContext();
 
@@ -71,6 +72,7 @@ function App() {
 
     return (
         <div className="App">
+            {/* <Class/> */}
             <GlobalStyle/>
             <Navbar bg="dark" variant="dark">
                 <Container>
