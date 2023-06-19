@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/Javascript_입문과_웹UI개발/Ep.1-동적UI만드는스텝/main.css" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div class="alert-box" id="alert">
+            <p id="title">알림창임</p>
+            <button type="button" class="btnClose" onclick="alertOpen('none')">닫기</button>
+        </div>
+        <button onclick="idAlert('아이디 입력해라')">버튼1</button>
+        <button onclick="idAlert('비밀번호 입력해라')">버튼2</button>
+        <script>
+            function alertOpen(e) {
+                document.getElementById('alert').style.display = e;
+            }
+
+            /*
+                function idAlert(){
+                    document.getElementById('title').innerHTML = '아이디 입력해라';
+                    document.getElementById('alert').style.display = 'block';
+                }
+
+                function passwordAlert(){
+                    document.getElementById('title').innerHTML = '비밀번호 입력해라';
+                    document.getElementById('alert').style.display = 'block';
+                }
+
+            */
+
+            //함수 두개를 파라미터 문법으로 함수 하나로 해결!
+            function idAlert(titleChange) {
+                document.getElementById('title').innerHTML = titleChange;
+                document.getElementById('alert').style.display = 'block';
+            }
+        </script>
+    </body>
+</html>

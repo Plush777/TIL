@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko" dir="rtl">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- Bootstrap CSS -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.rtl.min.css"
+            integrity="sha384-+4j30LffJ4tgIMrq9CwHvn0NjEvmuDCOfk6Rpg2xg7zgOxWWtLtozDEEVvBPgHqE"
+            crossorigin="anonymous"
+        />
+        <title></title>
+        <style>
+            .sizeForm {
+                display: none;
+            }
+
+            .sizeForm.active {
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <form class="container my-5 form-group">
+            <p>상품선택</p>
+            <select class="dressForm form-select mt-2">
+                <option value="모자">모자</option>
+                <option value="셔츠">셔츠</option>
+                <option value="바지">바지</option>
+            </select>
+            <select class="sizeForm form-select mt-2">
+                <option>95</option>
+                <option>100</option>
+            </select>
+        </form>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            let dressForm = document.querySelector('.dressForm');
+            let sizeForm = document.querySelector('.sizeForm');
+
+            dressForm.addEventListener('change', function (e) {
+                let targetValue = e.target.value;
+                let pants = [28, 30, 32, 34];
+                let shirts = [95, 100, 105];
+
+                if (targetValue === '셔츠') {
+                    sizeForm.classList.add('active');
+                    sizeForm.innerHTML = '';
+
+                    shirts.forEach((item) => {
+                        sizeForm.innerHTML += `<option>${item}</option>`;
+                    });
+                } else if (targetValue === '모자') {
+                    sizeForm.classList.remove('active');
+                    sizeForm.innerHTML = `<option>95</option><option>100</option>`;
+                } else if (targetValue === '바지') {
+                    sizeForm.classList.add('active');
+                    sizeForm.innerHTML = '';
+
+                    pants.forEach((a, i) => {
+                        sizeForm.innerHTML += `<option>${a}</option>`;
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>
